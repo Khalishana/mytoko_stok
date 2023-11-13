@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mytoko_stok/screens/lihat_item.dart';
+// Impor drawer widget
+import 'package:mytoko_stok/widgets/left_drawer.dart';
+import 'package:mytoko_stok/screens/liststok_form.dart'; //import ShopFormPage
+//import 'package:mytoko_stok/widgets/stok_card.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   final List<ShopItem> items = [
-    ShopItem("Lihat Item", Icons.checklist, Colors.red),
-    ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.green),
+    ShopItem("Lihat Item", Icons.checklist, Colors.yellow),
+    ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.orange),
     ShopItem("Logout", Icons.logout, Colors.blue),
 ];
 
@@ -25,7 +30,11 @@ class MyHomePage extends StatelessWidget {
         title: const Text(
           'Stoknya Aku Mobile',
         ),
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
       ),
+      // Masukkan drawer sebagai parameter nilai drawer dari widget Scaffold
+      drawer: const LeftDrawer(),
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
         child: Padding(
@@ -78,13 +87,21 @@ class ShopCard extends StatelessWidget {
     return Material(
       color: color, //atur warna setiap card
       child: InkWell(
-        // Area responsive terhadap sentuhan
         onTap: () {
           // Memunculkan SnackBar ketika diklik
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
+          //navigate ke route lain
+          if (item.name == "Tambah Item"){
+            // implemen push buat navigasi ke shopformpage
+            Navigator.push(context,
+             MaterialPageRoute(builder: (context) => const ShopFormPage()));
+          }else if (item.name == "Lihat Item"){
+            Navigator.push(context,
+             MaterialPageRoute(builder: (context) => const LihatItem()));
+          }
         },
         child: Container(
           // Container untuk menyimpan Icon dan Text
