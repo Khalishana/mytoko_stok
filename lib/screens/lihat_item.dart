@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mytoko_stok/models/items.dart';
 import 'package:mytoko_stok/widgets/left_drawer.dart';
-import 'package:mytoko_stok/widgets/models.dart';
+//import 'package:mytoko_stok/widgets/models.dart';
+//import 'package:mytoko_stok/models/items.dart';
 import 'package:mytoko_stok/main.dart';
 //import 'package:mytoko_stok/widgets/stok_card.dart';
 
@@ -13,9 +15,9 @@ class LihatItem extends StatelessWidget{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Nama Produk: ${item.namaItem}"),
-            Text("Jumlah: ${item.amountItem}"),
-            Text("Deskripsi: ${item.description}"),
+            Text("Nama Produk: ${item.fields.name}"),
+            Text("Jumlah: ${item.fields.amount}"),
+            Text("Deskripsi: ${item.fields.description}"),
           ],
         ),
       ),
