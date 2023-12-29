@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mytoko_stok/screens/lihat_item.dart';
+//import 'package:mytoko_stok/screens/lihat_item.dart';
+import 'package:mytoko_stok/screens/list_item.dart';
 import 'package:mytoko_stok/screens/liststok_form.dart';
 import 'package:mytoko_stok/screens/toko.dart';
 
@@ -65,19 +66,30 @@ class LeftDrawer extends StatelessWidget {
                   ));
             },
           ),
+          // ListTile(
+          //   leading: const Icon(Icons.checklist),
+          //   title: const Text('Lihat Item yang Disimpan'),
+          //   // Bagian redirection ke LihatItem
+          //   onTap: () {
+          //     //routing ke LihatItem
+          //     Navigator.pushReplacement(
+          //       context, 
+          //       MaterialPageRoute(
+          //         builder: (context) => LihatItem(),
+          //         ));
+          //   },
+          // ),
           ListTile(
-            leading: const Icon(Icons.checklist),
-            title: const Text('Lihat Item yang Disimpan'),
-            // Bagian redirection ke LihatItem
+            leading: const Icon(Icons.shopping_basket),
+            title: const Text('Daftar Produk'),
             onTap: () {
-              //routing ke LihatItem
-              Navigator.pushReplacement(
-                context, 
-                MaterialPageRoute(
-                  builder: (context) => LihatItem(),
-                  ));
+                // Route menu ke halaman produk
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductPage()),
+                );
             },
-          )
+        ),
         ],
       ),
     );

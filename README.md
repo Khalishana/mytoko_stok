@@ -1,3 +1,36 @@
+### TUGAS 9
+> Maaf bang Adjie di tugas 9 ini aku masih full pakai localhost karena udah coba berulang kali deployment djangonya masih belum bisa 🙏
+1. Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON? <br>
+Jawab: Kita bisa melakukan pengambilan data JSON tanpa membuat model terlebih dahulu dengan menggunakan suatu variabel yang nantinya menyimpan dictionary berisi data tersebut. Tidak, melakukan pengambilan data tanpa membuat model terlebih dahulu bukanlah suatu hal yang lebih baik. Sebaiknya sebelum mengambil data kita telah membuat model terlebih dahulu sehingga proses pengambilan data dapat dilakukan dengan lebih mudah mengingat model berfungsi untuk memastikan suatu objek memiliki semua nilai atribut yang terdapat pada suatu kelas. 
+2. Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter. <br>
+Jawab: CookieRequest merupakan suatu class bawaan pbp_django_auth.dart yang berfungsi untuk memungkinkan aplikasi yang dibuat melacak status login, memberi informasi sesi login pengguna, serta melakukan permintaan HTTP dengan metode GET dan POST. Instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter dengan tujuan membuat status login dan sesi pengguna konsisten (jika status login diubah dalam suatu aplikasi, maka sesi tersebut di aplikasi lain juga ikut berubah).
+3. Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter. <br>
+Jawab: Untuk melakukan pengambilan data dari JSON, pertama kita memanfaatkan Quicktype untuk mengimport data JSON dari endpoint aplikasi Django yang sudah dibuat. Setelah itu, ditambahkan dependensi http pada aplikasi flutter yang ditandai dengan penambahan kode `<uses-permission android:name="android.permission.INTERNET" />`
+pada android/app/src/main/AndroidManifest.xml dengan tujuan memperbolehkan akses internet pada aplikasi tersebut. Setelah itu, dilakukan fetch data pada file list_item.dart. Proses fetch data ini mengimplementasikan fungsi asinkronus dan mengirim permintaan HTTP. Proses ini memungkinkan data dari JSON dapat ditampilkan pada aplikasi flutter yang dibuat.
+4. Jelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.<br>
+Jawab: Pertama, pengguna akan diminta untuk memasukkan data login berupa username dan password pada laman LoginPage. Setelah pengguna menekan tombol login, fungsi login pada CookieRequest akan terpanggil sekaligus mengirimkan HTTP request dengan endpoint URL proyek Django yang sebelumnya sudah dibuat. Pada proyek Django sendiri dilakukan pula proses autentikasi pada file views.py yang terdapat pada folder authentication. Jika pengguna berhasil login pada aplikasi flutter, pengguna tersebut akan diarahkan ke laman MyHomePage sekaligus muncul tampilan selamat datang pada snackbar aplikasi flutter tersebut.
+5. Sebutkan seluruh widget yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing. <br>
+Jawab:
+- TextField = Widget yang berfugsi untuk memungkinkan pengguna memberikan input berupa teks
+- FutureBuilder = Widget yang berfungsi untuk mengelola status serta data secara asinkronus
+- Column = Widget yang berfungsi untuk mengatur posisi elemen secara vertikal
+- ListView = Widget yang berfungsi untuk menampilkan daftar yang dapat di scroll (scrollable)
+6. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+Jawab: Pertama, saya melakukan setup autentikasi pada proyek Django yang sebelumnya sudah saya buat sehingga dapat dilakukan proses Integrasi Autentikasi Django-Flutter pada aplikasi ini. Saya membuat django-app baru bernama authentication serta menambahkan nama app baru saya tersebut ke INSTALLED_APPS di settings.py main project aplikasi Django saya. Kemudian, saya melakukan instalasi library corsheaders serta melakukan penambahan yang sama pada file settings.py serta penambahan corsheaders.middleware.CorsMiddleware pada MIDDLEWARE. Selain itu, saya juga menambahkan beberapa variabel pada file settings.py, membuat fungsi login di views.py yang terdapat pada app authentication, serta membuat file baru bernama urls.py untuk menambahkan routing URL ke fungsi yang sudah dibuat. Setelah semua proses tersebut selesai, saya kembali ke aplikasi flutter saya dan melakukan instalasi package dengan perintah `flutter pub add provider` dan `flutter pub add pbp_django_auth`. Saya kemudian melakukan modifikasi pada main.dart sehingga aplikasi yang saya punya dapat menyediakan CookieRequest library ke semua child widgets dengan menggunakan Provider yang sebelumnya sudah terdapat pada package tersebut. Setelah itu, saya membuat file baru bernama login.dart pada folder screens untuk meng-handle proses login pada aplikasi flutter yang saya punya. Saya juga melakukan pengubahan pada file main.dart dengan mengubah home yang awalnya langsung mengarah ke MyHomePage menjadi mengarah ke LoginPage dimana didalamnya pengguna diharuskan untuk melakukan login akunnya terlebih dahulu. Langkah selanjutnya adalah proses membuat custom model JSON dari aplikasi django yang sudah saya punya. Untuk melakukan langkah ini, saya memanfaatkan Quicktype dan meletakkan copy dari data JSON aplikasi django saya ke dalam model yang saya punya, tepatnya ke dalam file items.dart. Untuk memenuhi checklist tugas bagian membuat halaman detail item, saya menambahkan method onTap pada file list_item.dart sebagai berikut
+```
+itemCount: snapshot.data!.length,
+itemBuilder: (_, index) => GestureDetector(
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ItemDetailPage(item: snapshot.data![index]),
+      ),
+    );
+  },
+```
+Saya juga membuat sebuah file baru bernama item_detail.dart pada folder widgets untuk membuat halaman yang akan menampilkan detail setiap item. Dengan melakukan hal demikian dan melakukan setiap perintah sesuai dengan yang tertera pada tutorial 8 kemarin, semua checklist tugas ini sudah dapat terpenuhi.
+
 ### TUGAS 8
 1. Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement(), disertai dengan contoh mengenai penggunaan kedua metode tersebut yang tepat!<br>
 Jawab: Navigator.push() dan Navigator.pushReplacement() merupakan bagian dari widget navigator pada flutter yang digunakan untuk berpindah halaman. 
