@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mytoko_stok/toko.dart';
+import 'package:mytoko_stok/screens/toko.dart';
+import 'package:mytoko_stok/widgets/models.dart';
 
+List<Item> listItem = [];
+//List<Map<String, dynamic>> listItem = [];
 void main() {
   runApp(const MyApp());
 }
